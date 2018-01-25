@@ -1,0 +1,11 @@
+[package]
+name = "dgraph-rs"
+version = "0.1.0"
+
+[dependencies]
+protobuf = "1.2"
+futures = "0.1"
+grpcio = "*"
+
+[build-dependencies]
+protobuf = "*"

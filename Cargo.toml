@@ -1,5 +1,5 @@
 [package]
-name = "dgraph-rs"
+name = "dgraph"
 version = "0.1.0"
 
 [dependencies]

@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use grpcio::Error;
+use grpcio::{ChannelBuilder, EnvBuilder};
 use parking_lot::Mutex;
 use rand;
 use rand::distributions::{IndependentSample, Range};
@@ -15,11 +16,22 @@ pub struct Dgraph {
 }
 
 impl Dgraph {
-    pub fn new(clients: Vec<Arc<DgraphClient>>) -> Dgraph {
+    pub fn new(clients: Vec<Arc<DgraphClient>>) -> Self {
         Dgraph {
             dc: clients,
             lin_read: Arc::new(Mutex::new(LinRead::new()))
         }
+    }
+
+    pub fn connect(host: &str, num_connections: u64) -> Self {
+        let mut clients: Vec<Arc<DgraphClient>> = Vec::new();
+        for _ in 0..num_connections {
+            let env = Arc::new(EnvBuilder::new().build());
+            let ch = ChannelBuilder::new(env).connect(&host);
+            let dc = DgraphClient::new(ch);
+            clients.push(Arc::new(dc));
+        }
+        Dgraph::new(clients)
     }
 
     pub fn merge_lin_read(&mut self, src: &LinRead) {

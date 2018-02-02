@@ -7,11 +7,12 @@ extern crate rand;
 #[macro_use]
 extern crate error_chain;
 
-pub mod client;
+mod client;
 pub mod error;
 pub mod grpc;
 pub mod transaction;
 
+pub use client::Dgraph;
 use grpc::api::LinRead;
 
 pub fn merge_lin_reads(dst: &mut LinRead, src: &LinRead) {

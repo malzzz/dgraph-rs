@@ -16,7 +16,6 @@ mod client;
 pub mod error;
 pub mod grpc;
 mod transaction;
-pub mod models;
 
 pub use self::transaction::Transaction;
 pub use client::Dgraph;

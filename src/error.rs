@@ -20,6 +20,10 @@ error_chain! {
         description("grpc error"),
         display("gRPC error: {}", e)
     }
+    UID(e: String) {
+        description("uid error"),
+        display("Couldn't get uid for: {}", e)
+    }
     Discard(e: String) {
         description("discard error"),
         display("Error discarding transaction: {}", e)

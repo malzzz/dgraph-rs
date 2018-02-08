@@ -12,11 +12,11 @@ pub struct Transaction<'a> {
     context: TxnContext,
     finished: bool,
     mutated: bool,
-    dg: &'a mut Dgraph
+    dg: &'a Dgraph
 }
 
 impl<'a> Transaction<'a> {
-    pub fn new(d: &'a mut Dgraph) -> Self {
+    pub fn new(d: &'a Dgraph) -> Self {
         let mut txn_context = TxnContext::new();
         txn_context.set_lin_read(d.get_lin_read());
 

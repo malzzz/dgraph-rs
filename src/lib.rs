@@ -3,6 +3,11 @@ extern crate grpcio;
 extern crate parking_lot;
 extern crate protobuf;
 extern crate rand;
+extern crate serde_json;
+extern crate serde;
+
+#[macro_use]
+extern crate serde_derive;
 
 #[macro_use]
 extern crate error_chain;
@@ -10,9 +15,12 @@ extern crate error_chain;
 mod client;
 pub mod error;
 pub mod grpc;
-pub mod transaction;
+mod transaction;
+pub mod models;
 
+pub use self::transaction::Transaction;
 pub use client::Dgraph;
+pub use grpc::api::{Mutation, Operation};
 use grpc::api::LinRead;
 
 pub fn merge_lin_reads(dst: &mut LinRead, src: &LinRead) {

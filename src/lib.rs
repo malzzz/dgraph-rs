@@ -19,7 +19,7 @@ mod transaction;
 
 pub use self::transaction::Transaction;
 pub use client::Dgraph;
-pub use grpc::api::{Mutation, NQuad, Operation};
+pub use grpc::api::{Mutation, NQuad, Operation, Value};
 use grpc::api::LinRead;
 
 pub fn merge_lin_reads(dst: &mut LinRead, src: &LinRead) {

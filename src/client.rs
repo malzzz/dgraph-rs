@@ -43,13 +43,15 @@ impl Dgraph {
         }
     }
 
-    pub fn connect(host: &str, num_connections: u64) -> Self {
+    pub fn connect(hosts: &[&str], num_connections: u64) -> Self {
         let mut clients: Vec<Arc<DgraphClient>> = Vec::new();
-        for _ in 0..num_connections {
-            let env = Arc::new(EnvBuilder::new().build());
-            let ch = ChannelBuilder::new(env).connect(&host);
-            let dc = DgraphClient::new(ch);
-            clients.push(Arc::new(dc));
+        for host in hosts {
+            for _ in 0..num_connections {
+                let env = Arc::new(EnvBuilder::new().build());
+                let ch = ChannelBuilder::new(env).connect(&host);
+                let dc = DgraphClient::new(ch);
+                clients.push(Arc::new(dc));
+            }
         }
         Dgraph::new(clients)
     }
